@@ -67,7 +67,7 @@ class AppointmentTypeCrudController extends AbstractCrudController
     {
         yield IdField::new('id')->onlyOnIndex();
         yield TextField::new('name', '@office.admin.field.name')->setColumns(6);
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('name')->setColumns(4)->hideOnIndex();
         yield IntegerField::new('position', '@office.admin.field.position')->setColumns(2)->hideOnIndex();
         yield IntegerField::new('duration', '@office.admin.field.duration')->setColumns(2)->setHelp('@office.admin.help.minutes');
         yield IntegerField::new('buffer', '@office.admin.field.buffer')->setColumns(2)->setHelp('@office.admin.help.minutes')->hideOnIndex();

@@ -75,7 +75,7 @@ class MemberCrudController extends AbstractCrudController
         yield TextField::new('displayName', '@office.admin.field.display_name')->setColumns(5);
         yield TextField::new('title', '@office.admin.field.title')->setColumns(4)->setRequired(false);
         yield TextField::new('category', '@office.admin.field.category')->setColumns(3)->setRequired(false)->setHelp('@office.admin.help.category');
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('displayName')->setColumns(4)->hideOnIndex();
         // The account they sign in with: a plain choice (omnibase's association field would open the whole account's form).
         yield SelectField::new('user', '@office.admin.field.user')->setChoices($this->accounts())->setColumns(4)->setRequired(false)->hideOnIndex();
         yield TextField::new('registryId', '@office.admin.field.registry_id')->setColumns(4)->setRequired(false)->setHelp('@office.admin.help.registry_id');

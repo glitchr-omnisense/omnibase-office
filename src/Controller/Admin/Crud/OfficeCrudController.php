@@ -63,7 +63,7 @@ class OfficeCrudController extends AbstractCrudController
     {
         yield IdField::new('id')->onlyOnIndex();
         yield TextField::new('name', '@office.admin.field.name')->setColumns(6);
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('name')->setColumns(4)->hideOnIndex();
         yield BooleanField::new('main', '@office.admin.field.main')->setColumns(2);
         yield TextField::new('street', '@office.admin.field.street')->setColumns(6)->setRequired(false)->hideOnIndex();
         yield TextField::new('postalCode', '@office.admin.field.postal_code')->setColumns(2)->setRequired(false);
