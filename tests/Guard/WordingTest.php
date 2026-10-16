@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 /** The expressions common to the regulated practices, and a regime's own after them. */
 final class WordingTest extends TestCase
 {
+    /** @dataProvider forbidden (PHPUnit 9, the omnibase harness; the attribute from 10 on) */
     #[DataProvider('forbidden')]
     public function testComparisonAndAdvertisingAreFound(string $text, string $label): void
     {

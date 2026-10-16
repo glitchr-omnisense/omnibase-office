@@ -51,14 +51,14 @@ final class SlotFinderTest extends TestCase
     {
         $type = new AppointmentType('Consultation', 20);
         // 09:20-09:40 held, with ten minutes of buffer after it: 09:40 would start inside the buffer.
-        $busy = [[$this->at('2026-10-12 09:20'), $this->at('2026-10-12 09:50')]];
+        $busy = [[$this->moment('2026-10-12 09:20'), $this->moment('2026-10-12 09:50')]];
 
         self::assertSame(['09:00', '10:00'], $this->times($this->compute([$this->schedule(1, '09:00', '10:20')], busy: $busy, type: $type)));
     }
 
     public function testAnAbsenceRemovesWhatItOverlaps(): void
     {
-        $absence = new Absence($this->member, $this->at('2026-10-12 09:30'), $this->at('2026-10-12 12:00'));
+        $absence = new Absence($this->member, $this->moment('2026-10-12 09:30'), $this->moment('2026-10-12 12:00'));
 
         self::assertSame(['09:00'], $this->times($this->compute([$this->schedule(1, '09:00', '10:00')], absences: [$absence], type: new AppointmentType('Consultation', 20))), '09:20 would end at 09:40, inside the absence');
     }
@@ -67,12 +67,12 @@ final class SlotFinderTest extends TestCase
     {
         $schedules = [$this->schedule(1, '09:00', '10:00')];
         $type = new AppointmentType('Consultation', 20);
-        $now = $this->at('2026-10-12 08:30');
+        $now = $this->moment('2026-10-12 08:30');
 
         self::assertSame([], $this->times($this->compute($schedules, type: $type, now: $now)), 'two hours of notice: nothing left that morning');
         self::assertSame(['09:00', '09:20', '09:40'], $this->times($this->compute($schedules, type: $type, now: $now, staff: true)));
 
-        $far = $this->finder()->compute($schedules, [], [], $type, $this->at('2027-03-01 00:00'), $this->at('2027-03-02 00:00'), $now);
+        $far = $this->finder()->compute($schedules, [], [], $type, $this->moment('2027-03-01 00:00'), $this->moment('2027-03-02 00:00'), $now);
         self::assertSame([], $far, 'beyond the 60 days of the horizon');
     }
 
@@ -134,7 +134,7 @@ final class SlotFinderTest extends TestCase
     /** @return list<Slot> */
     private function compute(array $schedules, array $absences = [], array $busy = [], ?AppointmentType $type = null, string $from = '2026-10-12 00:00', string $to = '2026-10-13 00:00', \DateTimeInterface|string $now = '2026-10-05 12:00', bool $staff = false): array
     {
-        return $this->finder()->compute($schedules, $absences, $busy, $type ?? new AppointmentType('Consultation', 20), $this->at($from), $this->at($to), \is_string($now) ? $this->at($now) : $now, $staff);
+        return $this->finder()->compute($schedules, $absences, $busy, $type ?? new AppointmentType('Consultation', 20), $this->moment($from), $this->moment($to), \is_string($now) ? $this->moment($now) : $now, $staff);
     }
 
     private function finder(): SlotFinder
@@ -147,7 +147,7 @@ final class SlotFinderTest extends TestCase
         return new Schedule($this->member, $day, $from, $to);
     }
 
-    private function at(string $time): \DateTimeImmutable
+    private function moment(string $time): \DateTimeImmutable
     {
         return new \DateTimeImmutable($time, $this->paris);
     }
