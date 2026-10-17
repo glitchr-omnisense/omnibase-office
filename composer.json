@@ -35,7 +35,7 @@
     "suggest": {
         "omnimeet/jitsi": "Video calls on a Jitsi Meet instance instead of from browser to browser: several people, an embedded frame (office.visio.gateway)",
         "omnibase/admin": "The back office: the agenda per member, the CRUD screens, the dashboard widgets, the access log",
-        "glitchr/omnistate": "A member read from their professional register (RPPS, later the CNB) through ProfessionalRegistryInterface",
+        "omniscient/omnistate": "A member read from their professional register (RPPS, later the CNB) through ProfessionalRegistryInterface",
         "omnibase/mailbox": "Messages to the office, with attachments kept in the vault"
     },
     "autoload": {
