@@ -1,7 +1,7 @@
 # omnibase/office
 
 A professional practice on its own site, whatever the profession - a health centre, a notary's or a
-lawyer's office - on [glitchr/omnibase](https://github.com/glitchr-studio/omnibase). One bundle, four parts:
+lawyer's office - on [omniscient/omnibase](https://github.com/glitchr-studio/omnibase). One bundle, four parts:
 
 | Part | What it is |
 |---|---|
