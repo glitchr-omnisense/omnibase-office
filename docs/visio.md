@@ -13,7 +13,7 @@ only while it is open.
 
 ## The room is office's, the call a gateway's
 
-What carries the call is a gateway of [glitchr/omnimeet](https://github.com/glitchr-studio/omnimeet):
+What carries the call is a gateway of [glitchr/omnimeet](https://github.com/glitchr-omnisense/omnimeet):
 
 | Stays here (the meeting and its data) | Is the family's (the factory and the engine) |
 |---|---|
@@ -53,7 +53,7 @@ The room only relays their handshake, over plain HTTP - no WebSocket server to r
 
 The engine has no dependency: the host offers, the guest answers; mute, camera off, screen
 sharing, a chat on a data channel (never stored). Its markup and its rules are documented with
-[omnimeet/direct](https://github.com/glitchr-studio/omnimeet-direct).
+[omnimeet/direct](https://github.com/glitchr-omnisense/omnimeet-direct).
 
 ### TURN
 
@@ -113,7 +113,7 @@ buttons, the same waiting room and the same end (`public/js/visio-frame.js`):
 
 - the third party is **named before anything is loaded from it** (`visio.provider.notice`), and
   nothing is loaded before the visitor enters;
-- with [omnibase/consent](https://github.com/glitchr-studio/omnibase-consent) on the site, it
+- with [omnibase/consent](https://github.com/glitchr-omnisense/omnibase-consent) on the site, it
   waits for the visitor's yes: the page declares the feature `VISIO` in the consent panel
   (`Consent.use('VISIO', ...)`), and entering is refused until it is on;
 - the response's `Permissions-Policy` lets the provider's origin use the camera and the
