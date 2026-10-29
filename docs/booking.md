@@ -1,6 +1,6 @@
 ---
 title: Booking
-order: 2
+order: 30
 ---
 
 # Booking
