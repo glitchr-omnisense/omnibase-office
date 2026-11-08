@@ -16,7 +16,7 @@
         "ext-sodium": "*",
         "doctrine/orm": "^2.15|^3.0",
         "omnibridge/symfony": "1.x-dev",
-        "omnisense/omnibase": "3.0.*-dev || 4.0.*-dev",
+        "omnisense/omnibase": "3.0.*-dev || 4.0.*-dev || 5.0.*-dev",
         "league/flysystem": "^3.0",
         "omnimeet/direct": "^1.0@dev",
         "omnisense/omnimeet": "^1.0@dev",
