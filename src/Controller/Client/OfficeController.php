@@ -3,7 +3,7 @@
 namespace Base\Office\Controller\Client;
 
 use Base\Form\Model\ContactModel;
-use Base\Form\Type\ContactType;
+use Omnibridge\Symfony\Omnibase\Form\Type\ContactType;
 use Base\Office\Entity\ContactRequest;
 use Base\Office\Repository\MemberRepository;
 use Base\Office\Repository\OfficeRepository;

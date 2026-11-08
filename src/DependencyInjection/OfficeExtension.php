@@ -47,7 +47,7 @@ class OfficeExtension extends AbstractBaseExtension implements PrependExtensionI
 
     /**
      * The practice's name for the texts, the direct video gateway, and the private storage of the vault when the application has not declared it.
-     * (The UTC moment type the entities use, utc_datetime_immutable, is glitchr/omnibase's: Base\Database\Type\UtcDateTimeImmutableType.)
+     * (The UTC moment type the entities use, utc_datetime_immutable, is glitchr/omnibase's: Omnibridge\Doctrine\Omnibase\Database\Type\UtcDateTimeImmutableType.)
      */
     public function prepend(ContainerBuilder $container): void
     {

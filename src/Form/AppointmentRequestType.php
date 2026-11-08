@@ -2,7 +2,7 @@
 
 namespace Base\Office\Form;
 
-use Base\Form\Type\PrivacyType;
+use Omnibridge\Symfony\Omnibase\Form\Type\PrivacyType;
 use Base\Office\Form\Model\AppointmentRequest;
 use Base\Office\Entity\Booking\AppointmentType;
 use Base\Office\Entity\Member;
@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * The first appointment request, open to someone who has no account: what
  * it is about (a type in request mode), with whom if they know, how to
  * reach them, a few words - and omnibase's data-protection notice with its
- * box to tick (Base\Form\Type\PrivacyType).
+ * box to tick (Omnibridge\Symfony\Omnibase\Form\Type\PrivacyType).
  *
  * Its labels are translation keys under `label_prefix`
  * ('@office.appointment_request' by default): type, choose, member,
