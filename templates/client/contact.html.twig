@@ -13,7 +13,7 @@
         <div>
             <p class="of-warning">{{ notice|trans|raw }}</p>
             {{ form_start(form, {attr: {class: 'of-form', novalidate: 'novalidate'}}) }}
-                {#- What belongs to no field: the forms' guard (glitchr/omnibase) refuses a form sent too fast,
+                {#- What belongs to no field: the forms' guard (omnisense/omnibase) refuses a form sent too fast,
                     or from an address a list knows, on the form itself - unprinted, it came back without a word. -#}
                 {{ form_errors(form) }}
                 {{ form_row(form.name, {label: 'contact.name'|trans({}, 'office')}) }}
@@ -22,7 +22,7 @@
                 {{ form_row(form.message, {label: 'contact.message'|trans({}, 'office')}) }}
                 {{ form_row(form.website) }}
                 {{ form_row(form.privacy) }}
-                {#- The guard's captcha (glitchr/omnishield), when the site has one: before the button, not
+                {#- The guard's captcha (omnisense/omnishield), when the site has one: before the button, not
                     left by form_end under it. -#}
                 {% if form.guard_captcha is defined %}{{ form_row(form.guard_captcha) }}{% endif %}
                 <button type="submit" class="of-button">{{ 'contact.submit'|trans({}, 'office') }}</button>

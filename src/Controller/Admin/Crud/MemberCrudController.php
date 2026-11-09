@@ -28,7 +28,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * The team as the site shows it. "Read the register" asks the member's
- * professional register again (glitchr/omnistate) and keeps what it said.
+ * professional register again (omnisense/omnistate) and keeps what it said.
  */
 class MemberCrudController extends AbstractCrudController
 {

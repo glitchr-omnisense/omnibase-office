@@ -10,7 +10,7 @@ use Omnimeet\Registry;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
- * The practice's video gateways, from glitchr/omnimeet: the one new rooms
+ * The practice's video gateways, from omnisense/omnimeet: the one new rooms
  * open on (office.visio.gateway, "direct" unless said otherwise) and the
  * others configured, which rooms opened earlier may still be on.
  */

@@ -30,7 +30,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * during the call (kept in the vault for the guest). Only the room's two
  * participants get anything, and only while it is open.
  *
- * What carries the call is the room's gateway (glitchr/omnimeet): the page
+ * What carries the call is the room's gateway (omnisense/omnimeet): the page
  * asks it how this participant enters and renders that - omnimeet/direct's
  * engine on these endpoints, a provider's frame, or a button to its
  * address. Who gets in, who is there and when it ends are judged here, on

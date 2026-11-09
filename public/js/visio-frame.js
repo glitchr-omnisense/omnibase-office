@@ -1,6 +1,6 @@
 /*
  * omnibase/office - the video room when its gateway is a provider's frame
- * or address (glitchr/omnimeet: Access FRAME or LINK). The call itself is
+ * or address (omnisense/omnimeet: Access FRAME or LINK). The call itself is
  * the provider's; this keeps what the practice judges the same whatever
  * the gateway:
  *

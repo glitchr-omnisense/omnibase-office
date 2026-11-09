@@ -109,7 +109,7 @@ office:
         # Minutes after its planned end the room closes.
         close_after:          30
 
-        # What carries the calls: the name of a glitchr/omnimeet gateway (omnimeet.gateways.<name>). "direct" - from browser to browser, omnimeet/direct - is declared for you.
+        # What carries the calls: the name of an omnisense/omnimeet gateway (omnimeet.gateways.<name>). "direct" - from browser to browser, omnimeet/direct - is declared for you.
         gateway:              direct
 
         # Whose name a gateway is given, to show the other: the host's - the member's, already public on the site - or none. The client's is never given: a provider would learn who consults.

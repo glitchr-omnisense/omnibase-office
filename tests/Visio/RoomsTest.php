@@ -30,7 +30,7 @@ use Omnimeet\Request\Request;
 use PHPUnit\Framework\TestCase;
 
 /**
- * The room on glitchr/omnimeet: opened on the practice's gateway, entered
+ * The room on omnisense/omnimeet: opened on the practice's gateway, entered
  * the way that gateway says, closed on both sides - and the gateway told as
  * little as it needs.
  */

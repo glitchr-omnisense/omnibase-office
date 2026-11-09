@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 /**
  * The video's relay: configured, and answering on its first address (a UDP
  * STUN binding request - the same port coturn listens on for TURN). It is
- * the direct gateway's (glitchr/omnimeet, omnimeet/direct): a practice
+ * the direct gateway's (omnisense/omnimeet, omnimeet/direct): a practice
  * whose calls go through another gateway has no relay of its own to check.
  */
 final class TurnCheck implements ComplianceCheckInterface

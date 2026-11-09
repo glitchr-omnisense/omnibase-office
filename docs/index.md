@@ -11,7 +11,7 @@ order: 1
 composer require omnibase/office
 ```
 
-It brings [`glitchr/omnimeet`](https://github.com/glitchr-omnisense/omnimeet) and `omnimeet/direct`,
+It brings [`omnisense/omnimeet`](https://github.com/glitchr-omnisense/omnimeet) and `omnimeet/direct`,
 which carry the video calls ([Visio](visio.md)).
 
 ```php
@@ -81,7 +81,7 @@ office:
     visio:
         open_before: 10                    # minutes before the appointment the room opens
         close_after: 30
-        gateway: direct                    # the glitchr/omnimeet gateway new rooms open on (omnimeet.gateways.<name>)
+        gateway: direct                    # the omnisense/omnimeet gateway new rooms open on (omnimeet.gateways.<name>)
         names: host                        # whose name a gateway is given: the member's (host), or none
         turn_probe: ~                      # host:port the compliance check asks (a container's service name)
 
@@ -98,7 +98,7 @@ omnimeet:
 ```
 
 `office.visio.turn_secret`, `turn_urls`, `stun_urls` and `turn_ttl`, where these four were
-written before the video's engine left for glitchr/omnimeet, are still read - as aliases, for
+written before the video's engine left for omnisense/omnimeet, are still read - as aliases, for
 this version, with a deprecation notice.
 
 ## Pages
@@ -145,7 +145,7 @@ The stylesheet (`bundles/office/css/office.css`) reads the site's colours from C
 
 ## The team and its register
 
-A `Member` has a `registryId` (an RPPS number, later a bar number). With `glitchr/omnistate` installed,
+A `Member` has a `registryId` (an RPPS number, later a bar number). With `omnisense/omnistate` installed,
 `Base\Office\Service\MemberRegistry::refresh($member)` asks whichever `ProfessionalRegistryInterface`
 knows that identifier and keeps what it said on the member (`registryData`, `registryCheckedAt`) - the
 back office's "Lire le registre".

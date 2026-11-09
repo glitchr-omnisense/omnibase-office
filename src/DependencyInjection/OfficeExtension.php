@@ -47,7 +47,7 @@ class OfficeExtension extends AbstractBaseExtension implements PrependExtensionI
 
     /**
      * The practice's name for the texts, the direct video gateway, and the private storage of the vault when the application has not declared it.
-     * (The UTC moment type the entities use, utc_datetime_immutable, is glitchr/omnibase's: Omnibridge\Doctrine\Omnibase\Database\Type\UtcDateTimeImmutableType.)
+     * (The UTC moment type the entities use, utc_datetime_immutable, is omnisense/omnibase's: Omnibridge\Doctrine\Omnibase\Database\Type\UtcDateTimeImmutableType.)
      */
     public function prepend(ContainerBuilder $container): void
     {
@@ -91,7 +91,7 @@ class OfficeExtension extends AbstractBaseExtension implements PrependExtensionI
         $config = (new Processor())->processConfiguration($configuration, $configs);
 
         if ($used = self::visioAliases($configs)['used']) {
-            trigger_deprecation('omnibase/office', '1.1', 'The "office.visio.%s" option%s moved to "omnimeet.gateways.direct.options": the relay belongs to glitchr/omnimeet\'s direct gateway. The former place is read for this version only.', implode('", "office.visio.', $used), \count($used) > 1 ? 's' : '');
+            trigger_deprecation('omnibase/office', '1.1', 'The "office.visio.%s" option%s moved to "omnimeet.gateways.direct.options": the relay belongs to omnisense/omnimeet\'s direct gateway. The former place is read for this version only.', implode('", "office.visio.', $used), \count($used) > 1 ? 's' : '');
         }
 
         // Flat parameters: office.timezone, office.booking.min_notice, office.share.master_key...
@@ -103,7 +103,7 @@ class OfficeExtension extends AbstractBaseExtension implements PrependExtensionI
         // The vault's storage: a Flysystem service of the application (local.share by default, see prepend()).
         $container->setAlias('office.share.storage', $config['share']['storage']);
 
-        // The register a member is read from, when glitchr/omnistate is installed.
+        // The register a member is read from, when omnisense/omnistate is installed.
         if (class_exists(\Omnistate\Omnistate::class)) {
             $container->getDefinition(\Base\Office\Service\MemberRegistry::class)
                 ->setArgument('$omnistate', new \Symfony\Component\DependencyInjection\Reference(\Omnistate\Omnistate::class, \Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE));

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * A video room: the host (the member) and the guest (the client), opened a
  * little before its subject's start and closed a while after its end. The
  * guest waits in it until the host joins. What carries the call is a
- * gateway of glitchr/omnimeet - by default from browser to browser
+ * gateway of omnisense/omnimeet - by default from browser to browser
  * (omnimeet/direct): the room then only relays their handshake; the room
  * keeps which gateway opened it and its reference there. Who may enter,
  * who is there, when it ends: all of that is judged here, whatever the
@@ -73,7 +73,7 @@ class Room
     #[ORM\Column(length: 64, nullable: true)]
     protected ?string $gateway = null;
 
-    /** Its name on that gateway: what glitchr/omnimeet's Open answered, kept to let people in and to close. */
+    /** Its name on that gateway: what omnisense/omnimeet's Open answered, kept to let people in and to close. */
     #[ORM\Column(length: 255, nullable: true)]
     protected ?string $reference = null;
 

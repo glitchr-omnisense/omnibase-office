@@ -45,7 +45,7 @@ return function (ContainerConfigurator $configurator, \Symfony\Component\Depende
     $services->load('Base\\Office\\Controller\\Client\\', $src.'/Controller/Client/')
         ->tag('controller.service_arguments');
 
-    // The video room on glitchr/omnimeet: the handshake of omnimeet/direct kept in the Signal rows (its factory, built
+    // The video room on omnisense/omnimeet: the handshake of omnimeet/direct kept in the Signal rows (its factory, built
     // by Omnimeet\Bridge\Symfony\OmnimeetBundle or by VisioGatewayPass, asks for this store), and its rules on them.
     $services->alias(SignalStoreInterface::class, SignalRepository::class);
     $services->set(Signaling::class)->args([service(SignalRepository::class)]);

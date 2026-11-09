@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * An application that has not registered glitchr/omnimeet's bundle
+ * An application that has not registered omnisense/omnimeet's bundle
  * (Omnimeet\Bridge\Symfony\OmnimeetBundle) still has its video room: the
  * registry is made here with the direct gateway alone, its relay read from
  * office.visio's own keys - what the bundle did before the family existed.

@@ -13,7 +13,7 @@ only while it is open.
 
 ## The room is office's, the call a gateway's
 
-What carries the call is a gateway of [glitchr/omnimeet](https://github.com/glitchr-omnisense/omnimeet):
+What carries the call is a gateway of [omnisense/omnimeet](https://github.com/glitchr-omnisense/omnimeet):
 
 | Stays here (the meeting and its data) | Is the family's (the factory and the engine) |
 |---|---|
@@ -125,7 +125,7 @@ buttons, the same waiting room and the same end (`public/js/visio-frame.js`):
 A gateway that only gives an address (`Access` of kind `link`) is rendered as a button, shown to
 the guest once the host is there.
 
-## Without glitchr/omnimeet's bundle
+## Without omnisense/omnimeet's bundle
 
 An application that does not register `Omnimeet\Bridge\Symfony\OmnimeetBundle` keeps its video
 room: `DependencyInjection\Compiler\VisioGatewayPass` makes the registry with the direct gateway

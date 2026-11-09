@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * A member read again from their professional register through
- * glitchr/omnistate: an RPPS number for a health professional, a bar
+ * omnisense/omnistate: an RPPS number for a health professional, a bar
  * number later - this class does not know which, ProfessionalRegistry-
  * Interface does. What the register said is kept on the member
  * (registryData, registryCheckedAt); what the site shows is still the
@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class MemberRegistry
 {
-    /** @param \Omnistate\Omnistate|null $omnistate wired when glitchr/omnistate is installed */
+    /** @param \Omnistate\Omnistate|null $omnistate wired when omnisense/omnistate is installed */
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ?object $omnistate = null,

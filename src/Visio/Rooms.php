@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
  * office.visio.open_before minutes before and closed close_after minutes
  * after the end. Closing purges the handshake.
  *
- * What carries the call is a gateway of glitchr/omnimeet: the room is
+ * What carries the call is a gateway of omnisense/omnimeet: the room is
  * opened on office.visio.gateway and keeps its reference there; entering
  * asks that gateway how (access()). The gateway is told as little as it
  * needs - the room's own token for a key, never what the room is for, and
@@ -113,7 +113,7 @@ class Rooms
         return $this->gateways->isDirect($room->getGateway() ?? $this->gateways->name());
     }
 
-    /** The room as glitchr/omnimeet knows a meeting: the token for a key, the window it is open in, no title. */
+    /** The room as omnisense/omnimeet knows a meeting: the token for a key, the window it is open in, no title. */
     public function meeting(Room $room): Meeting
     {
         return new Meeting(

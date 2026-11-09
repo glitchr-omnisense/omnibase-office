@@ -94,7 +94,7 @@ class OfficeConfiguration extends AbstractBaseConfiguration
                         ->integerNode('close_after')->min(0)->defaultValue(30)
                             ->info('Minutes after its planned end the room closes.')->end()
                         ->scalarNode('gateway')->defaultValue('direct')->cannotBeEmpty()
-                            ->info('What carries the calls: the name of a glitchr/omnimeet gateway (omnimeet.gateways.<name>). "direct" - from browser to browser, omnimeet/direct - is declared for you.')->end()
+                            ->info('What carries the calls: the name of an omnisense/omnimeet gateway (omnimeet.gateways.<name>). "direct" - from browser to browser, omnimeet/direct - is declared for you.')->end()
                         ->enumNode('names')->values(['host', 'none'])->defaultValue('host')
                             ->info('Whose name a gateway is given, to show the other: the host\'s - the member\'s, already public on the site - or none. The client\'s is never given: a provider would learn who consults.')->end()
                         ->scalarNode('turn_secret')->defaultValue('%env(default::TURN_SECRET)%')
