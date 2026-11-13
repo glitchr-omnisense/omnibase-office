@@ -16,4 +16,30 @@ Nothing here knows health, law or payment. A regime puts its trade on top: `omni
 composer require omnibase/office
 ```
 
+Stable releases follow semantic versioning: this installs the latest 1.x, with omnisense/omnibase 5.1 or later
+on Symfony (omnibridge/symfony) and Doctrine ORM (DoctrineBundle). No `minimum-stability` setting is needed.
+
+Under Symfony, register the bundle and its pages, then create its tables:
+
+```php
+// config/bundles.php
+Base\Office\OfficeBundle::class => ['all' => true],
+Omnimeet\Bridge\Symfony\OmnimeetBundle::class => ['all' => true],   // the video gateways; optional for the direct one alone
+```
+
+```yaml
+# config/routes.yaml
+office_controller:
+    resource: "@OfficeBundle/src/Controller/Client"
+    type: attribute
+```
+
+```sh
+bin/console make:migration && bin/console doctrine:migrations:migrate
+```
+
+First use: describe the office in the back office (or as an `Office` entity in your fixtures), then open
+`/rendez-vous/demande`, the appointment request form anyone can send. The vault's master key, the booking and the
+visio are set up in [docs/](docs/index.md).
+
 Documentation: [docs/](docs/index.md). License: MIT since 2026-10-09; earlier versions remain published under LGPL-3.0-or-later.

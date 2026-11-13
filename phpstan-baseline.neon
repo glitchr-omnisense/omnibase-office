@@ -1,0 +1,847 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot cast Symfony\\Component\\Security\\Core\\User\\UserInterface to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Booking/AppointmentRequests.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Booking/AppointmentRequests.php
+
+		-
+			message: '#^Parameter \#3 \$client of method Base\\Office\\Booking\\BookingPolicy\:\:canBook\(\) expects Symfony\\Component\\Security\\Core\\User\\UserInterface\|null, App\\Entity\\User\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Booking/Booker.php
+
+		-
+			message: '#^Parameter \$by of method Base\\Office\\Booking\\Booker\:\:book\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Booking/Booker.php
+
+		-
+			message: '#^Parameter \$by of method Base\\Office\\Booking\\Booker\:\:series\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Booking/Booker.php
+
+		-
+			message: '#^Parameter \$client of method Base\\Office\\Booking\\Booker\:\:book\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Booking/Booker.php
+
+		-
+			message: '#^Parameter \$client of method Base\\Office\\Booking\\Booker\:\:request\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Booking/Booker.php
+
+		-
+			message: '#^Parameter \$client of method Base\\Office\\Booking\\Booker\:\:series\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Booking/Booker.php
+
+		-
+			message: '#^Parameter \#1 \$array is passed by reference so it does not accept readonly property Base\\Office\\Command\\RemindCommand\:\:\$reminders\.$#'
+			identifier: argument.byRef
+			count: 1
+			path: src/Command/RemindCommand.php
+
+		-
+			message: '#^Readonly property Base\\Office\\Command\\RemindCommand\:\:\$reminders is assigned outside of the constructor\.$#'
+			identifier: property.readOnlyAssignNotInConstructor
+			count: 1
+			path: src/Command/RemindCommand.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/AgendaController.php
+
+		-
+			message: '#^Parameter \#4 \$by of method Base\\Office\\Service\\ClientInvitations\:\:invite\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Admin/AgendaController.php
+
+		-
+			message: '#^Parameter \$by of method Base\\Office\\Booking\\Booker\:\:book\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Admin/AgendaController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/AbsenceCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/AbsenceCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\AbsenceCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/AbsenceCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/AppointmentCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/AppointmentCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/AppointmentTypeCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/AppointmentTypeCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/ContactRequestCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/ContactRequestCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\ContactRequestCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/ContactRequestCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/MemberCrudController.php
+
+		-
+			message: '#^Access to property \$profession on an unknown class Omnistate\\Model\\Professional\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/MemberCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/MemberCrudController.php
+
+		-
+			message: '#^Call to method name\(\) on an unknown class Omnistate\\Model\\Professional\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/MemberCrudController.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/MemberCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\MemberCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/MemberCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/OfficeCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/OfficeCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\OfficeCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/OfficeCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/ScheduleCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/ScheduleCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\ScheduleCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/ScheduleCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/ServiceAreaCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/ServiceAreaCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\ServiceAreaCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/ServiceAreaCrudController.php
+
+		-
+			message: '#^Access to an undefined property UnitEnum\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/Admin/Crud/WalkInCrudController.php
+
+		-
+			message: '#^Call to an undefined method UnitEnum\:\:label\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Admin/Crud/WalkInCrudController.php
+
+		-
+			message: '#^Method Base\\Office\\Controller\\Admin\\Crud\\WalkInCrudController\:\:choices\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: src/Controller/Admin/Crud/WalkInCrudController.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/DocumentsController.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 3
+			path: src/Controller/Admin/DocumentsController.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$sender contains unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/DocumentsController.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Entity\\User is not subtype of native type Symfony\\Component\\Security\\Core\\User\\UserInterface\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Controller/Admin/DocumentsController.php
+
+		-
+			message: '#^Parameter \#2 \$by of method Base\\Office\\Share\\DocumentVault\:\:revoke\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Admin/DocumentsController.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Security\\Core\\User\\UserInterface\:\:getId\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/Client/BookingController.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Client/BookingController.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$user contains unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Client/BookingController.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Entity\\User is not subtype of native type Symfony\\Component\\Security\\Core\\User\\UserInterface\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Controller/Client/BookingController.php
+
+		-
+			message: '#^Parameter \#3 \$client of method Base\\Office\\Booking\\Booker\:\:request\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/BookingController.php
+
+		-
+			message: '#^Parameter \#3 \$client of method Base\\Office\\Booking\\BookingPolicy\:\:canBook\(\) expects Symfony\\Component\\Security\\Core\\User\\UserInterface\|null, App\\Entity\\User given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/BookingController.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Controller/Client/InvitationController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Symfony\\Bundle\\SecurityBundle\\Security\:\:login\(\) expects Symfony\\Component\\Security\\Core\\User\\UserInterface, App\\Entity\\User given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/InvitationController.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Controller/Client/ShareController.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$user contains unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 3
+			path: src/Controller/Client/ShareController.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Entity\\User is not subtype of native type Symfony\\Component\\Security\\Core\\User\\UserInterface\|null\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: src/Controller/Client/ShareController.php
+
+		-
+			message: '#^Parameter \#2 \$by of method Base\\Office\\Share\\DocumentVault\:\:revoke\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/ShareController.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$user contains unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Entity\\User is not subtype of native type Symfony\\Component\\Security\\Core\\User\\UserInterface\|null\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Office\\Entity\\Visio\\Room\:\:isHost\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Office\\Entity\\Visio\\Room\:\:isParticipant\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Parameter \#1 \$user of static method Base\\Office\\Visio\\Rooms\:\:participantId\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Parameter \#2 \$user of method Base\\Office\\Visio\\Rooms\:\:access\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Parameter \#3 \$sender of method Base\\Office\\Share\\DocumentVault\:\:deposit\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>origins" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: src/Controller/Client/VisioController.php
+
+		-
+			message: '#^Call to method getEmail\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Booking\\Appointment\:\:getClient\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Booking\\Appointment\:\:getCreatedBy\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Booking\\Appointment\:\:getVisioGuest\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Booking\\Appointment\:\:getVisioHost\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Parameter \$client of method Base\\Office\\Entity\\Booking\\Appointment\:\:setClient\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Booking\\Appointment\:\:setCreatedBy\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Booking\\Appointment\:\:\$client has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Booking\\Appointment\:\:\$createdBy has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Booking/Appointment.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Invitation\:\:\$id \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/Entity/Invitation.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Member.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Member\:\:getUser\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Member.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Member\:\:setUser\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Member.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Member\:\:\$user has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Member.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/AccessLog.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Share\\AccessLog\:\:getUser\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/AccessLog.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Share\\AccessLog\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/AccessLog.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Share\\AccessLog\:\:\$user has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/AccessLog.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Share\\Document\:\:getRecipient\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Share\\Document\:\:getSender\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Parameter \$recipient of method Base\\Office\\Entity\\Share\\Document\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Office\\Entity\\Share\\Document\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Share\\Document\:\:\$recipient has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Share\\Document\:\:\$sender has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Share/Document.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 4
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Visio\\Room\:\:getGuest\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Visio\\Room\:\:getHost\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$guest of method Base\\Office\\Entity\\Visio\\Room\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$guest of method Base\\Office\\Entity\\Visio\\Room\:\:setGuest\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$host of method Base\\Office\\Entity\\Visio\\Room\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$host of method Base\\Office\\Entity\\Visio\\Room\:\:setHost\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Visio\\Room\:\:isGuest\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Visio\\Room\:\:isHost\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Visio\\Room\:\:isParticipant\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Entity\\Visio\\Room\:\:seen\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Visio\\Room\:\:\$guest has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Visio\\Room\:\:\$host has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Room.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Signal.php
+
+		-
+			message: '#^Method Base\\Office\\Entity\\Visio\\Signal\:\:getSender\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Signal.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Office\\Entity\\Visio\\Signal\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Signal.php
+
+		-
+			message: '#^Property Base\\Office\\Entity\\Visio\\Signal\:\:\$sender has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Visio/Signal.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Event\\ClientAccountEvent\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Event/ClientAccountEvent.php
+
+		-
+			message: '#^Property Base\\Office\\Event\\ClientAccountEvent\:\:\$user has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Event/ClientAccountEvent.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/Visio/SignalRepository.php
+
+		-
+			message: '#^Method Base\\Office\\Service\\ClientInvitations\:\:accept\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Method Base\\Office\\Service\\ClientInvitations\:\:accept\(\) should return App\\Entity\\User but returns Base\\Entity\\User\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Parameter \#1 \$invitedBy of method Base\\Entity\\User\\Invitation\:\:setInvitedBy\(\) expects Base\\Entity\\User\|null, App\\Entity\\User\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Parameter \#1 \$user of class Base\\Office\\Event\\ClientAccountEvent constructor expects App\\Entity\\User, Base\\Entity\\User given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Office\\Service\\ClientInvitations\:\:attach\(\) expects App\\Entity\\User, Base\\Entity\\User given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Parameter \$by of method Base\\Office\\Service\\ClientInvitations\:\:invite\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Service\\ClientInvitations\:\:attach\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/ClientInvitations.php
+
+		-
+			message: '#^Call to method professional\(\) on an unknown class Omnistate\\Omnistate\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/MemberRegistry.php
+
+		-
+			message: '#^Method Base\\Office\\Service\\MemberRegistry\:\:refresh\(\) has invalid return type Omnistate\\Model\\Professional\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/MemberRegistry.php
+
+		-
+			message: '#^PHPDoc tag @throws with type Omnistate\\Exception\\NotSupportedException\|Omnistate\\Exception\\UnavailableException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
+			count: 1
+			path: src/Service/MemberRegistry.php
+
+		-
+			message: '#^Parameter \$omnistate of method Base\\Office\\Service\\MemberRegistry\:\:__construct\(\) has invalid type Omnistate\\Omnistate\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/MemberRegistry.php
+
+		-
+			message: '#^Property Base\\Office\\Service\\MemberRegistry\:\:\$omnistate has unknown class Omnistate\\Omnistate as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/MemberRegistry.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 3
+			path: src/Share/DocumentVault.php
+
+		-
+			message: '#^Parameter \$by of method Base\\Office\\Share\\DocumentVault\:\:revoke\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Share/DocumentVault.php
+
+		-
+			message: '#^Parameter \$recipient of method Base\\Office\\Share\\DocumentVault\:\:deposit\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Share/DocumentVault.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Office\\Share\\DocumentVault\:\:deposit\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Share/DocumentVault.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Share\\DocumentVault\:\:log\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Share/DocumentVault.php
+
+		-
+			message: '#^Call to method getEmail\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Share/ShareMailer.php
+
+		-
+			message: '#^Method Base\\Office\\Visio\\RoomSubjectInterface\:\:getVisioGuest\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/RoomSubjectInterface.php
+
+		-
+			message: '#^Method Base\\Office\\Visio\\RoomSubjectInterface\:\:getVisioHost\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/RoomSubjectInterface.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Rooms.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Visio\\Rooms\:\:access\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Rooms.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Visio\\Rooms\:\:canEnter\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Rooms.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Visio\\Rooms\:\:heartbeat\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Rooms.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Visio\\Rooms\:\:participant\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Rooms.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Visio\\Rooms\:\:participantId\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Rooms.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Office\\Visio\\Signaling\:\:send\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Signaling.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Office\\Visio\\Signaling\:\:receive\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Visio/Signaling.php
