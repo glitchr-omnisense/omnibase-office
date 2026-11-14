@@ -2,9 +2,9 @@
 
 namespace Base\Office;
 
-use Base\Bundle\AbstractBaseBundle;
 use Base\Office\DependencyInjection\Compiler\VisioGatewayPass;
 use Base\Traits\SingletonTrait;
+use Omnibridge\Symfony\Omnibase\Bundle\AbstractBaseBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
