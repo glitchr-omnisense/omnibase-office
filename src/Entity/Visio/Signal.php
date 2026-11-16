@@ -4,7 +4,7 @@ namespace Base\Office\Entity\Visio;
 
 use App\Entity\User;
 use Base\Office\Repository\Visio\SignalRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * One message of the WebRTC handshake, from one side of a room to the

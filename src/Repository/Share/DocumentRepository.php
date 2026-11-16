@@ -2,27 +2,33 @@
 
 namespace Base\Office\Repository\Share;
 
+use Base\Database\Type\Utc;
+use Base\Database\Repository\Finder\Parser;
+use Base\Database\Repository\Finder\Key;
+use Base\Database\Repository\Finder\Group;
+use Base\Database\Repository\Finder\Criterion;
 use Base\Office\Entity\Share\Document;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<Document> */
+/**
+ * @method Document|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Document|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method Document[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class DocumentRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Document::class);
+        parent::__construct($finders, Document::class);
     }
 
     /** @return list<Document> the documents kept for this user, newest first */
     public function findForRecipient(object $user, bool $withRevoked = false): array
     {
-        $qb = $this->createQueryBuilder('d')->andWhere('d.recipient = :user')->setParameter('user', $user)->orderBy('d.createdAt', 'DESC');
-        if (!$withRevoked) {
-            $qb->andWhere('d.revokedAt IS NULL');
-        }
+        $criteria = ['recipient' => Key::of($user)];
 
-        return $qb->getQuery()->getResult();
+        return ($withRevoked ? $this->findBy($criteria, ['createdAt' => 'DESC']) : $this->findByRevokedAtNull($criteria, ['createdAt' => 'DESC'])->getResult());
     }
 
     /** @return list<Document> the documents this user sent */
@@ -33,20 +39,19 @@ class DocumentRepository extends ServiceEntityRepository
 
     public function countUnread(object $user): int
     {
-        return (int) $this->createQueryBuilder('d')->select('COUNT(d.id)')
-            ->andWhere('d.recipient = :user')->setParameter('user', $user)
-            ->andWhere('d.readAt IS NULL')->andWhere('d.revokedAt IS NULL')
-            ->andWhere('(d.sender IS NULL OR d.sender != :user)')
-            ->getQuery()->getSingleScalarResult();
+        return (int) $this->countByReadAtNullAndRevokedAtNull([
+            'recipient' => Key::of($user),
+            Group::of(Parser::SEPARATOR_OR, Criterion::of('sender', Key::of(null)), Criterion::of('sender', Key::of($user), Parser::OPTION_NOT_EQUAL)),
+        ]);
     }
 
     /** @return list<Document> expired or revoked before that date: their files go */
     public function findGoneBefore(\DateTimeInterface $before): array
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('(d.expiresAt IS NOT NULL AND d.expiresAt < :before) OR (d.revokedAt IS NOT NULL AND d.revokedAt < :before)')
-            ->setParameter('before', \Base\Database\Type\Utc::from($before))
-            ->getQuery()->getResult();
+        // `x IS NOT NULL AND x < :before` is `x < :before`: no NULL is lower than a date.
+        $before = Utc::from($before);
+
+        return $this->findBy([Group::by('ExpiresAtLowerThanOrRevokedAtLowerThan', $before, $before)]);
     }
 
 }

@@ -2,16 +2,21 @@
 
 namespace Base\Office\Repository\Visio;
 
+use Base\Database\Type\Utc;
 use Base\Office\Entity\Visio\Room;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<Room> */
+/**
+ * @method Room|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Room|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method Room[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class RoomRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Room::class);
+        parent::__construct($finders, Room::class);
     }
 
     public function findOneByToken(string $token): ?Room
@@ -33,14 +38,12 @@ class RoomRepository extends ServiceEntityRepository
     /** @return list<Room> rooms open now whose guest waits for the host */
     public function findWaiting(int $seconds = 20): array
     {
-        $now = \Base\Database\Type\Utc::now();
+        $now = Utc::now();
 
         return array_values(array_filter(
-            $this->createQueryBuilder('r')
-                ->andWhere('r.endedAt IS NULL')
-                ->andWhere('r.opensAt <= :now')->andWhere('r.closesAt >= :now')->setParameter('now', $now)
-                ->andWhere('r.guestSeenAt >= :since')->setParameter('since', $now->modify(sprintf('-%d seconds', $seconds)))
-                ->getQuery()->getResult(),
+            $this->findByEndedAtNullAndOpensAtLowerEqualToAndClosesAtGreaterEqualToAndGuestSeenAtGreaterEqualTo(
+                $now, $now, $now->modify(sprintf('-%d seconds', $seconds)),
+            )->getResult(),
             static fn (Room $room) => $room->isGuestWaiting($seconds, $now),
         ));
     }
@@ -48,9 +51,7 @@ class RoomRepository extends ServiceEntityRepository
     /** @return list<Room> closed rooms whose handshake can go */
     public function findClosedBefore(\DateTimeInterface $before): array
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.closesAt < :before OR r.endedAt IS NOT NULL')->setParameter('before', \Base\Database\Type\Utc::from($before))
-            ->getQuery()->getResult();
+        return $this->findByClosesAtLowerThanOrEndedAtNotNull(Utc::from($before))->getResult();
     }
 
 }

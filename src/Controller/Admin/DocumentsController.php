@@ -10,7 +10,7 @@ use Base\Office\Repository\Share\AccessLogRepository;
 use Base\Office\Repository\Share\DocumentRepository;
 use Base\Office\Share\AudienceResolverInterface;
 use Base\Office\Share\DocumentVault;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Repository\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class DocumentsController extends AbstractController
     public function __construct(
         private readonly DocumentVault $vault,
         private readonly DocumentRepository $documents,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly Users $users,
         private readonly TranslatorInterface $translator,
     ) {
     }
@@ -41,7 +41,7 @@ class DocumentsController extends AbstractController
     #[Route('/admin/documents', name: 'office_admin_documents', methods: ['GET'], defaults: ['_nest' => true])]
     public function index(Request $request): Response
     {
-        $recipient = $request->query->getInt('client') ? $this->entityManager->getRepository(User::class)->find($request->query->getInt('client')) : null;
+        $recipient = $request->query->getInt('client') ? $this->users->find($request->query->getInt('client')) : null;
         $list = $recipient
             ? $this->documents->findForRecipient($recipient, true)
             : $this->documents->findBy([], ['createdAt' => 'DESC'], 100);
@@ -61,9 +61,10 @@ class DocumentsController extends AbstractController
         /** @var User $sender */
         $sender = $this->getUser();
         $email = mb_strtolower(trim($request->request->getString('email')));
+        /** @var User|null $recipient the application's account (App\Entity\User), as Users answers it */
         $recipient = $request->request->getInt('client')
-            ? $this->entityManager->getRepository(User::class)->find($request->request->getInt('client'))
-            : ('' !== $email ? $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]) : null);
+            ? $this->users->find($request->request->getInt('client'))
+            : ('' !== $email ? $this->users->findOneBy(['email' => $email]) : null);
         $file = $request->files->get('file');
 
         if (null === $recipient) {

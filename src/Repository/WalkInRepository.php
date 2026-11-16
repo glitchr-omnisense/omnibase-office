@@ -3,15 +3,19 @@
 namespace Base\Office\Repository;
 
 use Base\Office\Entity\WalkIn;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<WalkIn> */
+/**
+ * @method WalkIn|null find($id, $lockMode = null, $lockVersion = null)
+ * @method WalkIn|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method WalkIn[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class WalkInRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, WalkIn::class);
+        parent::__construct($finders, WalkIn::class);
     }
 
     /** @return list<WalkIn> */

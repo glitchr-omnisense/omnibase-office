@@ -4,7 +4,7 @@ namespace Base\Office\Entity\Visio;
 
 use App\Entity\User;
 use Base\Office\Repository\Visio\RoomRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A video room: the host (the member) and the guest (the client), opened a

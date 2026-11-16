@@ -105,7 +105,7 @@ class MemberCrudController extends AbstractCrudController
     private function accounts(): array
     {
         $accounts = [];
-        foreach ($this->entityManager->getRepository(\App\Entity\User::class)->findBy([], ['username' => 'ASC']) as $user) {
+        foreach ($this->repositories->of(\App\Entity\User::class)->findBy([], ['username' => 'ASC']) as $user) {
             $accounts[(string) $user] = $user;
         }
 

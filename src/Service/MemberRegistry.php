@@ -3,7 +3,7 @@
 namespace Base\Office\Service;
 
 use Base\Office\Entity\Member;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 
 /**
  * A member read again from their professional register through
@@ -17,7 +17,7 @@ class MemberRegistry
 {
     /** @param \Omnistate\Omnistate|null $omnistate wired when omnisense/omnistate is installed */
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
         private readonly ?object $omnistate = null,
     ) {
     }
@@ -42,7 +42,7 @@ class MemberRegistry
         }
         $professional = $this->omnistate->professional($member->getRegistryId());
         $member->setRegistryData(null === $professional ? ['found' => false] : self::snapshot($professional));
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
 
         return $professional;
     }

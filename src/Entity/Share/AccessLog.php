@@ -5,7 +5,7 @@ namespace Base\Office\Entity\Share;
 use App\Entity\User;
 use Base\Office\Enum\AccessAction;
 use Base\Office\Repository\Share\AccessLogRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * Who did what with a document, when, from where: each view, download,

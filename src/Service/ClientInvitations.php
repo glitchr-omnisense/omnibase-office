@@ -5,8 +5,8 @@ namespace Base\Office\Service;
 use App\Entity\User;
 use Base\Office\Entity\Invitation;
 use Base\Office\Event\ClientAccountEvent;
+use Base\Office\Repository\Booking\AppointmentRepository;
 use Base\Service\Invitations;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\MailerInterface;
@@ -26,7 +26,7 @@ class ClientInvitations
 
     public function __construct(
         private readonly Invitations $invitations,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly AppointmentRepository $appointments,
         private readonly MailerInterface $mailer,
         private readonly UrlGeneratorInterface $urls,
         private readonly TranslatorInterface $translator,
@@ -70,7 +70,6 @@ class ClientInvitations
     /** The appointments taken for that address, without an account, are theirs now. */
     public function attach(User $user, string $email): int
     {
-        return $this->entityManager->createQuery('UPDATE '.\Base\Office\Entity\Booking\Appointment::class.' a SET a.client = :user WHERE a.client IS NULL AND LOWER(a.clientEmail) = :email')
-            ->setParameter('user', $user)->setParameter('email', mb_strtolower($email))->execute();
+        return $this->appointments->attachClient($user, $email);
     }
 }

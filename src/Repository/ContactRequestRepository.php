@@ -2,32 +2,39 @@
 
 namespace Base\Office\Repository;
 
+use Base\Database\Repository\Finder\Parser;
+use Base\Database\Repository\Finder\Group;
+use Base\Database\Repository\Finder\Criterion;
 use Base\Office\Entity\ContactRequest;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<ContactRequest> */
+/**
+ * @method ContactRequest|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ContactRequest|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method ContactRequest[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class ContactRequestRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, ContactRequest::class);
+        parent::__construct($finders, ContactRequest::class);
     }
 
     /** @return list<ContactRequest> */
     public function findOpen(int $limit = 5): array
     {
-        return $this->createQueryBuilder('c')->andWhere('c.handledAt IS NULL')->orderBy('c.createdAt', 'DESC')->setMaxResults($limit)->getQuery()->getResult();
+        return $this->findByHandledAtNull([], ['createdAt' => 'DESC'], $limit)->getResult();
     }
 
     public function countOpen(): int
     {
-        return (int) $this->createQueryBuilder('c')->select('COUNT(c.id)')->andWhere('c.handledAt IS NULL')->getQuery()->getSingleScalarResult();
+        return (int) $this->countByHandledAtNull();
     }
 
     public function purgeBefore(\DateTimeInterface $before): int
     {
-        return $this->createQueryBuilder('c')->delete()->andWhere('c.createdAt < :before')->setParameter('before', \Base\Database\Type\Utc::from($before))->getQuery()->execute();
+        return $this->deleteBy([Group::of(Parser::SEPARATOR_AND, Criterion::of('createdAt', \Base\Database\Type\Utc::from($before), Parser::OPTION_LOWER))]);
     }
 
 }

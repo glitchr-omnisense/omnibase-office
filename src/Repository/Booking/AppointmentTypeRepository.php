@@ -3,25 +3,26 @@
 namespace Base\Office\Repository\Booking;
 
 use Base\Office\Entity\Booking\AppointmentType;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<AppointmentType> */
+/**
+ * @method AppointmentType|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AppointmentType|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method AppointmentType[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class AppointmentTypeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, AppointmentType::class);
+        parent::__construct($finders, AppointmentType::class);
     }
 
     /** @return list<AppointmentType> the active types this member offers */
     public function findForMember(\Base\Office\Entity\Member $member): array
     {
-        return $this->createQueryBuilder('t')
-            ->innerJoin('t.members', 'm')->andWhere('m = :member')->setParameter('member', $member)
-            ->andWhere('t.active = true')
-            ->orderBy('t.position', 'ASC')->addOrderBy('t.name', 'ASC')
-            ->getQuery()->getResult();
+        // The collection compared with one member: a join of it, as `JOIN t.members m WHERE m = :member` was.
+        return $this->findBy(['members' => $member, 'active' => true], ['position' => 'ASC', 'name' => 'ASC']);
     }
 
 }

@@ -6,7 +6,7 @@ use App\Entity\User;
 use Base\Office\Repository\MemberRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * Someone of the team, as the site presents them: a portrait, a title, the

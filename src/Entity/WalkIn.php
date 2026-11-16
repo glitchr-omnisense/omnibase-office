@@ -3,7 +3,7 @@
 namespace Base\Office\Entity;
 
 use Base\Office\Repository\WalkInRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * Hours when the practice receives without an appointment: the nurses'

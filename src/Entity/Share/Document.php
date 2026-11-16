@@ -6,7 +6,7 @@ use App\Entity\User;
 use Base\Office\Entity\Office;
 use Base\Office\Enum\DocumentKind;
 use Base\Office\Repository\Share\DocumentRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A document kept for someone: a result, a prescription, a report, a deed.

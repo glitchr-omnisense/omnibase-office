@@ -11,7 +11,7 @@ use Base\Office\Exception\ShareException;
 use Base\Office\Repository\Share\DocumentRepository;
 use Base\Office\Share\AudienceResolverInterface;
 use Base\Office\Share\DocumentVault;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\HeaderUtils;
@@ -36,7 +36,7 @@ class ShareController extends AbstractController
         private readonly DocumentVault $vault,
         private readonly DocumentRepository $documents,
         private readonly TranslatorInterface $translator,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
     ) {
     }
 
@@ -72,7 +72,7 @@ class ShareController extends AbstractController
         $this->vault->log($document, $inline ? AccessAction::VIEW : AccessAction::DOWNLOAD, $user);
         if ($document->getRecipient()?->getId() === $user->getId()) {
             $document->markRead();
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
 
         $response = new StreamedResponse(static function () use ($stream) {

@@ -2,7 +2,7 @@
 
 namespace Base\Office\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A client invited to open their account (omnibase's invitation by token):

@@ -10,7 +10,7 @@ use Base\Office\Enum\Channel;
 use Base\Office\Repository\Booking\AppointmentTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * What an appointment is for, as the client chooses it: "Consultation",

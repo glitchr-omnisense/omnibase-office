@@ -3,15 +3,19 @@
 namespace Base\Office\Repository\Booking;
 
 use Base\Office\Entity\Booking\Schedule;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<Schedule> */
+/**
+ * @method Schedule|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Schedule|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method Schedule[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class ScheduleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Schedule::class);
+        parent::__construct($finders, Schedule::class);
     }
 
     /** @return list<Schedule> */

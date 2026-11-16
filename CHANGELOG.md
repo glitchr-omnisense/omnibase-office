@@ -1,36 +1,12 @@
 # Changelog
 
-All notable changes to omnibase/office. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versions [Semantic Versioning](https://semver.org/).
+## [Unreleased] - 1.0.0
 
-## [Unreleased]
-
-## [1.0.2] — 2026-11-14
-
-### Changed
-- Accepts omnisense/omnibase 6.0 beside 5.1 (`^5.1 || ^6.0`) and omnibridge/symfony 2.0 beside 1.1 (`^1.1 || ^2.0`), and
-  omnibridge/doctrine 2.0 beside 1.0 (`^1.0 || ^2.0`): the bundle names none of what 6.0 removes (the former names,
-  BaseTrait's framework accessors, the dispatchers' former hooks, the union-typed arguments), so the same code runs on
-  both.
-
-## [1.0.1] — 2026-11-14
-
-### Changed
-- The bundle's classes extend omnibridge/symfony's `AbstractBaseBundle`, `AbstractBaseExtension` and
-  `AbstractBaseConfiguration` by their names (`Omnibridge\Symfony\Omnibase\Bundle\*`), no longer by the former
-  `Base\Bundle\*` ones, which omnisense/omnibase keeps only as aliases until 6.0. The same classes: nothing changes for
-  an application.
-
-## [1.0.0] — 2026-11-13
-
-### Changed
-- First stable release: installs with the default minimum-stability. Requires omnisense/omnibase `^5.1` (no longer
-  the 3.0, 4.0 or 5.0 development branches), omnibridge/symfony `^1.1`, omnisense/omnimeet and omnimeet/direct `^1.0`, without `@dev`; `minimum-stability: dev` removed;
-  branch alias `dev-main` = `1.x-dev`.
-- CI: glitchr-studio/ci's package workflow (validate, PHPUnit, PHPStan level 5 with a baseline, a consumer install)
-  and release workflow on a `v*` tag.
-- README: the install line, how to enable the bundle under Symfony, a first use.
-
-### Fixed
-- Requires doctrine/doctrine-bundle, symfony/doctrine-bridge and omnibridge/doctrine, whose classes `src/` uses: they came only with a host
-  application (omnibridge/symfony suggests them), so the bundle installed alone failed to load its repositories.
+omnibase/office is a professional practice on its own site, whatever the profession (a health centre, a notary's or a
+lawyer's office), on omnisense/omnibase: the office and its team, online booking with a member's schedule and absences,
+documents kept encrypted and shared with a client, and video consultations. It names only `Base\` classes: its
+repositories extend `Base\Database\Repository\ServiceEntityRepository` and speak the core's finder language, its
+services write through `Base\Contract\UnitOfWork` and read other classes through
+`Base\Database\Repository\Repositories`. Each query is written once in the finder language, the appointments given their
+client by e-mail (`updateBy()`) and the old signals, access logs and contact requests purged (`deleteBy()`) included,
+and compiled by the engine of the persistence chosen (omnibridge/doctrine or omnibridge/eloquent).

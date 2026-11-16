@@ -3,7 +3,7 @@
 namespace Base\Office\Entity;
 
 use Base\Office\Repository\ContactRequestRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A message from the contact form, kept for the back office as long as the

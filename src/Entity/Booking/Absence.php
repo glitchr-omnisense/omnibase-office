@@ -4,7 +4,7 @@ namespace Base\Office\Entity\Booking;
 
 use Base\Office\Entity\Member;
 use Base\Office\Repository\Booking\AbsenceRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A member away: holidays, a training, an afternoon off. Their slots are

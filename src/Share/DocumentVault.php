@@ -11,7 +11,7 @@ use Base\Office\Enum\DocumentKind;
 use Base\Office\Event\DocumentEvent;
 use Base\Office\Exception\CorruptedException;
 use Base\Office\Exception\ShareException;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use League\Flysystem\FilesystemOperator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\File;
@@ -31,7 +31,7 @@ class DocumentVault
 {
     public function __construct(
         private readonly Cipher $cipher,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
         #[Autowire(service: 'office.share.storage')] private readonly FilesystemOperator $storage,
         private readonly EventDispatcherInterface $dispatcher,
         private readonly RequestStack $requestStack,
@@ -98,8 +98,8 @@ class DocumentVault
         }
         $document->setFile($storagePath, $result['wrappedKey'], $result['sha256'], $result['size'], $mime);
 
-        $this->entityManager->persist($document);
-        $this->entityManager->flush();
+        $this->unitOfWork->persist($document);
+        $this->unitOfWork->flush();
         $this->log($document, null !== $sender && $sender !== $recipient ? AccessAction::SHARE : AccessAction::UPLOAD, $sender);
         $this->dispatcher->dispatch(new DocumentEvent($document, $notify && null !== $sender && $sender->getId() !== $recipient->getId()), DocumentEvent::DEPOSITED);
 
@@ -158,7 +158,7 @@ class DocumentVault
     public function revoke(Document $document, ?User $by): void
     {
         $document->revoke();
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
         $this->log($document, AccessAction::REVOKE, $by);
         $this->dispatcher->dispatch(new DocumentEvent($document, false), DocumentEvent::REVOKED);
     }
@@ -169,16 +169,16 @@ class DocumentVault
         if ($this->storage->fileExists($document->getStoragePath())) {
             $this->storage->delete($document->getStoragePath());
         }
-        $this->entityManager->remove($document);
-        $this->entityManager->flush();
+        $this->unitOfWork->remove($document);
+        $this->unitOfWork->flush();
     }
 
     public function log(Document $document, AccessAction $action, ?User $user): AccessLog
     {
         $request = $this->requestStack->getMainRequest();
         $log = new AccessLog((int) $document->getId(), $action, $user, $request?->getClientIp(), $request?->headers->get('User-Agent'), $document->getRecipient()?->getId());
-        $this->entityManager->persist($log);
-        $this->entityManager->flush();
+        $this->unitOfWork->persist($log);
+        $this->unitOfWork->flush();
 
         return $log;
     }

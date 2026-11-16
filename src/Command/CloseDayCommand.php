@@ -6,7 +6,7 @@ use Base\Office\Enum\AppointmentStatus;
 use Base\Office\Repository\Booking\AppointmentRepository;
 use Base\Office\Repository\Visio\RoomRepository;
 use Base\Office\Visio\Rooms;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,7 +25,7 @@ class CloseDayCommand extends Command
         private readonly AppointmentRepository $appointments,
         private readonly RoomRepository $rooms,
         private readonly Rooms $roomService,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
     ) {
         parent::__construct();
     }
@@ -43,7 +43,7 @@ class CloseDayCommand extends Command
                 ++$done;
             }
         }
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
         $purged = $this->roomService->purge();
         $output->writeln(sprintf('%d done, %d no-show, %d signal(s) purged.', $done, $missed, $purged));
 

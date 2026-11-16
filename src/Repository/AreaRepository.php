@@ -4,7 +4,7 @@ namespace Base\Office\Repository;
 
 use Base\Office\Entity\Area;
 use Base\Office\Entity\Member;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Base\Database\Repository\ServiceEntityRepository;
 
 /**
  * The fields of practice of a regime (Base\Office\Entity\Area): its
@@ -12,12 +12,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  *
  *     class AreaRepository extends \Base\Office\Repository\AreaRepository
  *     {
- *         public function __construct(ManagerRegistry $registry) { parent::__construct($registry, Area::class); }
+ *         public function __construct(Finders $finders) { parent::__construct($finders, Area::class); }
  *     }
  *
  * @template T of Area
- *
- * @extends ServiceEntityRepository<T>
  */
 abstract class AreaRepository extends ServiceEntityRepository
 {
@@ -36,9 +34,7 @@ abstract class AreaRepository extends ServiceEntityRepository
     /** @return list<T> the fields a member follows */
     public function findForMember(Member $member): array
     {
-        return $this->createQueryBuilder('a')
-            ->innerJoin('a.members', 'm')->andWhere('m = :member')->setParameter('member', $member)
-            ->andWhere('a.active = true')->orderBy('a.position', 'ASC')
-            ->getQuery()->getResult();
+        // The collection compared with one member: a join of it, as `JOIN a.members m WHERE m = :member` was.
+        return $this->findBy(['members' => $member, 'active' => true], ['position' => 'ASC']);
     }
 }

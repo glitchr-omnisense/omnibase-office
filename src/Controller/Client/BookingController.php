@@ -19,7 +19,7 @@ use Base\Office\Repository\MemberRepository;
 use Base\Office\Booking\BeneficiaryProviderInterface;
 use Base\Service\Calendar\GoogleCalendarLink;
 use Base\Service\Calendar\Ics;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Base\Controller\Attribute\MapRecord;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
@@ -69,7 +69,7 @@ class BookingController extends AbstractController
     }
 
     #[Route('/rendez-vous/{slug}', name: 'office_booking_member', methods: ['GET'], requirements: ['slug' => '[a-z0-9\-]+'])]
-    public function member(#[MapEntity(mapping: ['slug' => 'slug'])] Member $member): Response
+    public function member(#[MapRecord(mapping: ['slug' => 'slug'])] Member $member): Response
     {
         $types = array_values(array_filter($this->types->findForMember($member), fn (AppointmentType $t) => $this->policy->isListed($t, $member)));
         if (!$member->isBookable() || [] === $types) {
@@ -80,7 +80,7 @@ class BookingController extends AbstractController
     }
 
     #[Route('/rendez-vous/{slug}/{type}', name: 'office_booking_slots', methods: ['GET', 'POST'], requirements: ['slug' => '[a-z0-9\-]+', 'type' => '[a-z0-9\-]+'])]
-    public function slots(Request $request, #[MapEntity(mapping: ['slug' => 'slug'])] Member $member, #[MapEntity(mapping: ['type' => 'slug'])] AppointmentType $type): Response
+    public function slots(Request $request, #[MapRecord(mapping: ['slug' => 'slug'])] Member $member, #[MapRecord(mapping: ['type' => 'slug'])] AppointmentType $type): Response
     {
         if (!$this->policy->isListed($type, $member)) {
             throw $this->createNotFoundException();
@@ -112,7 +112,7 @@ class BookingController extends AbstractController
 
     #[Route('/rendez-vous/{slug}/{type}/{start}', name: 'office_booking_confirm', methods: ['GET', 'POST'], requirements: ['slug' => '[a-z0-9\-]+', 'type' => '[a-z0-9\-]+', 'start' => '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}'])]
     #[IsGranted('ROLE_USER')]
-    public function confirm(Request $request, #[MapEntity(mapping: ['slug' => 'slug'])] Member $member, #[MapEntity(mapping: ['type' => 'slug'])] AppointmentType $type, string $start): Response
+    public function confirm(Request $request, #[MapRecord(mapping: ['slug' => 'slug'])] Member $member, #[MapRecord(mapping: ['type' => 'slug'])] AppointmentType $type, string $start): Response
     {
         /** @var User $user */
         $user = $this->getUser();

@@ -10,7 +10,7 @@ use Base\Office\Enum\AppointmentStatus;
 use Base\Office\Enum\Channel;
 use Base\Office\Repository\Booking\AppointmentRepository;
 use Base\Office\Visio\RoomSubjectInterface;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * An appointment with a member: when (or not yet, for a request), what for,

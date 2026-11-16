@@ -2,26 +2,28 @@
 
 namespace Base\Office\Repository\Booking;
 
+use Base\Database\Type\Utc;
+use Base\Database\Repository\Finder\Key;
 use Base\Office\Entity\Booking\Absence;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<Absence> */
+/**
+ * @method Absence|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Absence|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method Absence[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class AbsenceRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Absence::class);
+        parent::__construct($finders, Absence::class);
     }
 
     /** @return list<Absence> the member's absences overlapping [from, to) */
     public function findOverlapping(\Base\Office\Entity\Member $member, \DateTimeInterface $from, \DateTimeInterface $to): array
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.member = :member')->setParameter('member', $member)
-            ->andWhere('a.startsAt < :to')->setParameter('to', \Base\Database\Type\Utc::from($to))
-            ->andWhere('a.endsAt > :from')->setParameter('from', \Base\Database\Type\Utc::from($from))
-            ->getQuery()->getResult();
+        return $this->findByStartsAtLowerThanAndEndsAtGreaterThan(Utc::from($to), Utc::from($from), ['member' => Key::of($member)])->getResult();
     }
 
 }

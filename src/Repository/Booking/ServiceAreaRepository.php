@@ -3,15 +3,19 @@
 namespace Base\Office\Repository\Booking;
 
 use Base\Office\Entity\Booking\ServiceArea;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<ServiceArea> */
+/**
+ * @method ServiceArea|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ServiceArea|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method ServiceArea[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class ServiceAreaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, ServiceArea::class);
+        parent::__construct($finders, ServiceArea::class);
     }
 
     /** @return list<ServiceArea> */

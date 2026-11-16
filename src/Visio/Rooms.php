@@ -7,7 +7,7 @@ use Base\Office\Entity\Visio\Room;
 use Base\Office\Repository\MemberRepository;
 use Base\Office\Repository\Visio\RoomRepository;
 use Base\Office\Repository\Visio\SignalRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Omnimeet\Exception\OmnimeetException;
 use Omnimeet\Model\Access;
 use Omnimeet\Model\Meeting;
@@ -35,7 +35,7 @@ class Rooms
     public function __construct(
         private readonly RoomRepository $rooms,
         private readonly SignalRepository $signals,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
         private readonly Gateways $gateways,
         private readonly MemberRepository $members,
         #[Autowire('%office.visio.open_before%')] private readonly int $openBefore = 10,
@@ -54,12 +54,12 @@ class Rooms
         $room = $this->rooms->findOneBySubject($subject->getVisioKey());
         if (null === $room) {
             $room = new Room($subject->getVisioKey(), $subject->getVisioHost(), $subject->getVisioGuest(), $opens, $closes);
-            $this->entityManager->persist($room);
+            $this->unitOfWork->persist($room);
         } else {
             $room->reschedule($opens, $closes)->setHost($subject->getVisioHost())->setGuest($subject->getVisioGuest());
         }
         $this->openOnGateway($room);
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
 
         return $room;
     }
@@ -82,7 +82,7 @@ class Rooms
     public function access(Room $room, User $user, ?string $locale = null): Access
     {
         if ($this->openOnGateway($room)) {
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
 
         return $this->gateways->get($room->getGateway())->join($this->meeting($room), $this->participant($room, $user, $locale));
@@ -92,7 +92,7 @@ class Rooms
     public function reference(Room $room): string
     {
         if ($this->openOnGateway($room)) {
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
 
         return (string) $room->getReference();
@@ -103,7 +103,7 @@ class Rooms
     {
         if (null === $room->getConnectedAt()) {
             $room->markConnected();
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
     }
 
@@ -146,13 +146,13 @@ class Rooms
     public function heartbeat(Room $room, User $user): void
     {
         $room->seen($user);
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
     }
 
     public function close(Room $room): void
     {
         $room->end();
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
         // The gateway closes its side when it can (the direct one purges the handshake; a provider whose
         // documentation shows no way to end a meeting from the server is left to its participants' pages).
         if ($room->isOpenedOnGateway() && $this->gateways->has($room->getGateway())) {

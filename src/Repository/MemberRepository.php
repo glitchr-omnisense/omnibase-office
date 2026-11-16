@@ -3,33 +3,31 @@
 namespace Base\Office\Repository;
 
 use Base\Office\Entity\Member;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<Member> */
+/**
+ * @method Member|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Member|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method Member[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class MemberRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Member::class);
+        parent::__construct($finders, Member::class);
     }
 
     /** @return list<Member> the team as the site shows it */
     public function findVisible(): array
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.visible = true')->andWhere('m.active = true')
-            ->orderBy('m.position', 'ASC')->addOrderBy('m.displayName', 'ASC')
-            ->getQuery()->getResult();
+        return $this->findBy(['visible' => true, 'active' => true], ['position' => 'ASC', 'displayName' => 'ASC']);
     }
 
     /** @return list<Member> those appointments can be booked with online */
     public function findBookable(): array
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.bookable = true')->andWhere('m.active = true')
-            ->orderBy('m.position', 'ASC')->addOrderBy('m.displayName', 'ASC')
-            ->getQuery()->getResult();
+        return $this->findBy(['bookable' => true, 'active' => true], ['position' => 'ASC', 'displayName' => 'ASC']);
     }
 
     public function findOneVisibleBySlug(string $slug): ?Member

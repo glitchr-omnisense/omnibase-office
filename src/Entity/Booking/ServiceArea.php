@@ -7,7 +7,7 @@ use Base\Office\Entity\Office;
 use Base\Office\Repository\Booking\ServiceAreaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * Where the office goes to its clients: a list of postcodes and towns, or a

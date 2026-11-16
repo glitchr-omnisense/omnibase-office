@@ -6,7 +6,7 @@ use App\Entity\User;
 use Base\Office\Entity\Visio\Room;
 use Base\Office\Entity\Visio\Signal;
 use Base\Office\Repository\Visio\SignalRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Omnimeet\Direct\Signaling as DirectSignaling;
 
 /**
@@ -23,7 +23,7 @@ class Signaling
     public function __construct(
         private readonly DirectSignaling $signaling,
         private readonly SignalRepository $signals,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
     ) {
     }
 
@@ -35,7 +35,7 @@ class Signaling
         $signal = $this->signaling->send((string) $room->getReference(), Rooms::participantId($sender), $type, $payload);
         if ($signal->connects()) {
             $room->markConnected();
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
 
         return $this->signals->find($signal->id);

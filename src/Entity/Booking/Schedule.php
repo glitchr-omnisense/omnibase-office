@@ -7,7 +7,7 @@ use Base\Office\Entity\Office;
 use Base\Office\Repository\Booking\ScheduleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * When a member receives, week after week: Monday 8:30-12:00 at the main

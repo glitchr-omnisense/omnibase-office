@@ -13,8 +13,8 @@ use Base\Office\Event\AppointmentEvent;
 use Base\Office\Exception\BookingException;
 use Base\Office\Repository\Booking\AppointmentRepository;
 use Base\Office\Share\Cipher;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Exception\UniqueConstraintViolation;
+use Base\Contract\UnitOfWork;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Uid\Uuid;
@@ -29,7 +29,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class Booker
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
         private readonly AppointmentRepository $appointments,
         private readonly SlotFinder $slots,
         private readonly BookingPolicy $policy,
@@ -178,7 +178,7 @@ class Booker
             throw new BookingException('booking.error.too_late', ['hours' => $this->cancelUntil]);
         }
         $appointment->setStatus(AppointmentStatus::CANCELLED);
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
         $this->dispatcher->dispatch(new AppointmentEvent($appointment, byStaff: $byStaff), AppointmentEvent::CANCELLED);
     }
 
@@ -220,7 +220,7 @@ class Booker
                     ->setClient($client)->setAddress($address)->setSeries($series)->setCreatedBy($by);
                 $this->fill($appointment, null, $details, $meta);
                 $this->issueCancelToken($appointment);
-                $this->entityManager->persist($appointment);
+                $this->unitOfWork->persist($appointment);
                 $appointments[] = $appointment;
             }
             $this->save(null);
@@ -286,11 +286,11 @@ class Booker
     private function save(?Appointment $appointment): void
     {
         if ($appointment) {
-            $this->entityManager->persist($appointment);
+            $this->unitOfWork->persist($appointment);
         }
         try {
-            $this->entityManager->flush();
-        } catch (UniqueConstraintViolationException $e) {
+            $this->unitOfWork->flush();
+        } catch (UniqueConstraintViolation $e) {
             throw new BookingException('booking.error.slot_taken');
         }
     }

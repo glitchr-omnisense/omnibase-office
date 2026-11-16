@@ -3,12 +3,12 @@
 namespace Base\Office\Controller\Client;
 
 use Base\Form\Model\ContactModel;
-use Omnibridge\Symfony\Omnibase\Form\Type\ContactType;
+use Base\Form\Type\ContactType;
 use Base\Office\Entity\ContactRequest;
 use Base\Office\Repository\MemberRepository;
 use Base\Office\Repository\OfficeRepository;
 use Base\Office\Repository\WalkInRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -66,7 +66,7 @@ class OfficeController extends AbstractController
     public function contact(
         Request $request,
         FormFactoryInterface $forms,
-        EntityManagerInterface $entityManager,
+        UnitOfWork $unitOfWork,
         MailerInterface $mailer,
         #[Autowire('%office.recipient%')] string $recipient,
         #[Autowire('%office.sender%')] string $sender,
@@ -82,8 +82,8 @@ class OfficeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$message->isRobot()) {
-                $entityManager->persist(new ContactRequest((string) $message->name, (string) $message->email, (string) $message->message, $message->phone ?? null));
-                $entityManager->flush();
+                $unitOfWork->persist(new ContactRequest((string) $message->name, (string) $message->email, (string) $message->message, $message->phone ?? null));
+                $unitOfWork->flush();
                 $mailer->send((new TemplatedEmail())
                     ->from($sender)
                     ->to($recipient)

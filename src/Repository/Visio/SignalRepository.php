@@ -2,42 +2,50 @@
 
 namespace Base\Office\Repository\Visio;
 
+use Base\Contract\UnitOfWork;
+use Base\Database\Repository\Finder\Parser;
+use Base\Database\Repository\Finder\Key;
+use Base\Database\Repository\Finder\Group;
+use Base\Database\Repository\Finder\Criterion;
 use App\Entity\User;
 use Base\Office\Entity\Visio\Room;
 use Base\Office\Entity\Visio\Signal;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
 use Omnimeet\Direct\Signal as Message;
 use Omnimeet\Direct\SignalStoreInterface;
+use Base\Database\Repository\ServiceEntityRepository;
 
 /**
  * The handshake's storage: omnimeet/direct's rules (Omnimeet\Direct\Signaling)
  * keep their messages here, as Signal rows - a room named by its reference
  * on the gateway, a participant by "u<id>" (Base\Office\Visio\Rooms::participantId()).
  *
- * @extends ServiceEntityRepository<Signal>
+ * @method Signal|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Signal[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
  */
 class SignalRepository extends ServiceEntityRepository implements SignalStoreInterface
 {
     /** @var array<string, int> the rooms' ids by reference: they never change */
     private array $rooms = [];
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Signal::class);
+    public function __construct(
+        Finders $finders,
+        private readonly UnitOfWork $unitOfWork,
+        private readonly RoomRepository $roomRepository,
+    ) {
+        parent::__construct($finders, Signal::class);
     }
 
     public function append(string $room, string $sender, string $type, string $payload): int
     {
-        $entityManager = $this->getEntityManager();
         $signal = new Signal(
-            $entityManager->getReference(Room::class, $this->roomId($room) ?? throw new \InvalidArgumentException(\sprintf('No room "%s".', $room))),
-            $entityManager->getReference(User::class, self::userId($sender) ?? throw new \InvalidArgumentException(\sprintf('"%s" is not a participant.', $sender))),
+            $this->unitOfWork->reference(Room::class, $this->roomId($room) ?? throw new \InvalidArgumentException(\sprintf('No room "%s".', $room))),
+            $this->unitOfWork->reference(User::class, self::userId($sender) ?? throw new \InvalidArgumentException(\sprintf('"%s" is not a participant.', $sender))),
             $type,
             $payload,
         );
-        $entityManager->persist($signal);
-        $entityManager->flush();
+        $this->unitOfWork->persist($signal);
+        $this->unitOfWork->flush();
 
         return (int) $signal->getId();
     }
@@ -48,52 +56,50 @@ class SignalRepository extends ServiceEntityRepository implements SignalStoreInt
         if (null === $id) {
             return [];
         }
-        $query = $this->createQueryBuilder('s')
-            ->select('s.id AS id', 'IDENTITY(s.sender) AS sender', 's.type AS type', 's.payload AS payload')
-            ->andWhere('IDENTITY(s.room) = :room')->setParameter('room', $id)
-            ->andWhere('s.id > :after')->setParameter('after', $after)
-            ->orderBy('s.id', 'ASC')->setMaxResults($limit);
+        // The rows were read as arrays (id, IDENTITY(sender), type, payload); they are read as signals now, the
+        // sender's id taken from its reference without loading it..
+        $criteria = ['room' => Key::of($id)];
         if (null !== $except) {
-            $query->andWhere('IDENTITY(s.sender) != :except')->setParameter('except', self::userId($except) ?? 0);
+            $criteria[] = Group::of(Parser::SEPARATOR_AND, Criterion::of('sender', Key::of(self::userId($except) ?? 0), Parser::OPTION_NOT_EQUAL));
         }
 
-        return array_map(static fn (array $row) => new Message((int) $row['id'], $room, 'u'.$row['sender'], (string) $row['type'], (string) $row['payload']), $query->getQuery()->getArrayResult());
+        return array_map(
+            static fn (Signal $signal) => new Message((int) $signal->getId(), $room, 'u'.$signal->getSender()?->getId(), (string) $signal->getType(), (string) $signal->getPayload()),
+            $this->findByIdGreaterThan($after, $criteria, ['id' => 'ASC'], $limit)->getResult(),
+        );
     }
 
     public function purge(string $room): int
     {
         $id = $this->roomId($room);
 
-        return null === $id ? 0 : (int) $this->createQueryBuilder('s')->delete()->andWhere('IDENTITY(s.room) = :room')->setParameter('room', $id)->getQuery()->execute();
+        return null === $id ? 0 : $this->deleteBy(['room' => $id]);
     }
 
     /** @return list<Signal> what the other side sent after that id */
     public function findForRecipient(Room $room, object $user, int $after = 0): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.room = :room')->setParameter('room', $room)
-            ->andWhere('s.sender != :user')->setParameter('user', $user)
-            ->andWhere('s.id > :after')->setParameter('after', $after)
-            ->orderBy('s.id', 'ASC')->setMaxResults(200)
-            ->getQuery()->getResult();
+        return $this->findByIdGreaterThan($after, [
+            'room' => Key::of($room),
+            Group::of(Parser::SEPARATOR_AND, Criterion::of('sender', Key::of($user), Parser::OPTION_NOT_EQUAL)),
+        ], ['id' => 'ASC'], 200)->getResult();
     }
 
     public function purgeRoom(Room $room): int
     {
-        return $this->createQueryBuilder('s')->delete()->andWhere('s.room = :room')->setParameter('room', $room)->getQuery()->execute();
+        return $this->deleteBy(['room' => $room]);
     }
 
     public function countForRoom(Room $room): int
     {
-        return (int) $this->createQueryBuilder('s')->select('COUNT(s.id)')->andWhere('s.room = :room')->setParameter('room', $room)->getQuery()->getSingleScalarResult();
+        return $this->count(['room' => Key::of($room)]);
     }
 
     private function roomId(string $reference): ?int
     {
         if (!isset($this->rooms[$reference])) {
-            $id = $this->getEntityManager()->createQueryBuilder()->select('r.id')->from(Room::class, 'r')
-                ->andWhere('r.reference = :reference')->setParameter('reference', $reference)
-                ->setMaxResults(1)->getQuery()->getOneOrNullResult()['id'] ?? null;
+            // The room's id was selected alone; the room is read now (once per reference, kept below).
+            $id = $this->roomRepository->findOneBy(['reference' => $reference])?->getId();
             if (null === $id) {
                 return null;
             }

@@ -4,7 +4,7 @@ namespace Base\Office\Command;
 
 use Base\Office\Event\AppointmentEvent;
 use Base\Office\Repository\Booking\AppointmentRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ class RemindCommand extends Command
 {
     public function __construct(
         private readonly AppointmentRepository $appointments,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
         private readonly EventDispatcherInterface $dispatcher,
         #[Autowire('%office.booking.reminders%')] private readonly array $reminders = [24, 2],
     ) {
@@ -51,7 +51,7 @@ class RemindCommand extends Command
                     $appointment->markReminderSent($hours);
                 }
             }
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
             $this->dispatcher->dispatch(new AppointmentEvent($appointment, hoursBefore: $due), AppointmentEvent::REMINDER);
             ++$sent;
         }

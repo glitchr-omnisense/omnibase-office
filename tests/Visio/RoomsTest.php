@@ -11,7 +11,7 @@ use Base\Office\Repository\Visio\SignalRepository;
 use Base\Office\Visio\Gateways;
 use Base\Office\Visio\Rooms;
 use Base\Office\Visio\RoomSubjectInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Omnimeet\Action\ActionInterface;
 use Omnimeet\Config;
 use Omnimeet\Direct\DirectGatewayFactory;
@@ -162,8 +162,8 @@ final class RoomsTest extends TestCase
 
         $repository = $this->createStub(RoomRepository::class);
         $repository->method('findOneBySubject')->willReturnCallback(fn (string $key) => $this->stored[$key] ?? null);
-        $entityManager = $this->createStub(EntityManagerInterface::class);
-        $entityManager->method('persist')->willReturnCallback(function (object $room): void { $this->stored[$room->getSubjectKey()] = $room; });
+        $unitOfWork = $this->createStub(UnitOfWork::class);
+        $unitOfWork->method('persist')->willReturnCallback(function (object $room): void { $this->stored[$room->getSubjectKey()] = $room; });
         $members = $this->createStub(MemberRepository::class);
         $members->method('findOneByUser')->willReturnCallback(static function (?object $user): ?Member {
             if (1 !== $user?->getId()) {
@@ -175,7 +175,7 @@ final class RoomsTest extends TestCase
             return $member;
         });
 
-        return new Rooms($repository, $this->createStub(SignalRepository::class), $entityManager, new Gateways($registry, $gateway), $members, 10, 30, $names);
+        return new Rooms($repository, $this->createStub(SignalRepository::class), $unitOfWork, new Gateways($registry, $gateway), $members, 10, 30, $names);
     }
 
     private function subject(): RoomSubjectInterface

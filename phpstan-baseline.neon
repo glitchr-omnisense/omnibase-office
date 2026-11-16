@@ -1,6 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^PHPDoc tag @var for variable \$client contains unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/AgendaController.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$recipient contains unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Admin/DocumentsController.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/Visio/SignalRepository.php
+
+		-
 			message: '#^Cannot cast Symfony\\Component\\Security\\Core\\User\\UserInterface to string\.$#'
 			identifier: cast.string
 			count: 1

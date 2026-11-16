@@ -3,7 +3,7 @@
 namespace Base\Office\Controller\Client;
 
 use Base\Office\Service\ClientInvitations;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Repository\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class InvitationController extends AbstractController
 {
     #[Route('/invitation/{token}', name: 'office_invitation', methods: ['GET', 'POST'], requirements: ['token' => '[a-f0-9]{48}'])]
-    public function accept(Request $request, string $token, ClientInvitations $invitations, EntityManagerInterface $entityManager, Security $security, TranslatorInterface $translator): Response
+    public function accept(Request $request, string $token, ClientInvitations $invitations, Users $users, Security $security, TranslatorInterface $translator): Response
     {
         $invitation = $invitations->find($token);
         if (null === $invitation) {
@@ -31,13 +31,13 @@ class InvitationController extends AbstractController
             $password = (string) $request->request->get('password');
             if (!preg_match('/^[A-Za-z0-9._\-]{3,40}$/', $username)) {
                 $errors[] = $translator->trans('invitation.error.username', [], 'office');
-            } elseif (null !== $entityManager->getRepository(\App\Entity\User::class)->findOneBy(['username' => $username])) {
+            } elseif (null !== $users->findOneBy(['username' => $username])) {
                 $errors[] = $translator->trans('invitation.error.taken', [], 'office');
             }
             if (mb_strlen($password) < 10) {
                 $errors[] = $translator->trans('invitation.error.password', [], 'office');
             }
-            if (null !== $entityManager->getRepository(\App\Entity\User::class)->findOneBy(['email' => $invitation->getEmail()])) {
+            if (null !== $users->findOneBy(['email' => $invitation->getEmail()])) {
                 $errors[] = $translator->trans('invitation.error.exists', [], 'office');
             }
             if ([] === $errors) {

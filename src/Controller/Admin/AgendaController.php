@@ -17,7 +17,8 @@ use Base\Office\Repository\Booking\ScheduleRepository;
 use Base\Office\Repository\MemberRepository;
 use Base\Office\Repository\Visio\RoomRepository;
 use Base\Office\Service\ClientInvitations;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Repository\Users;
+use Base\Contract\UnitOfWork;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,8 @@ class AgendaController extends AbstractController
         private readonly SlotFinder $slots,
         private readonly Booker $booker,
         private readonly TranslatorInterface $translator,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly Users $users,
+        private readonly UnitOfWork $unitOfWork,
     ) {
     }
 
@@ -150,7 +152,8 @@ class AgendaController extends AbstractController
         $email = mb_strtolower(trim($request->request->getString('email')));
         $name = trim($request->request->getString('name'));
         $phone = trim($request->request->getString('phone')) ?: null;
-        $client = '' !== $email ? $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]) : null;
+        /** @var User|null $client the application's account (App\Entity\User), as Users answers it */
+        $client = '' !== $email ? $this->users->findOneBy(['email' => $email]) : null;
 
         try {
             $appointment = $this->booker->book(
@@ -187,11 +190,11 @@ class AgendaController extends AbstractController
             switch ($action) {
                 case 'done':
                     $appointment->setStatus(AppointmentStatus::DONE);
-                    $this->entityManager->flush();
+                    $this->unitOfWork->flush();
                     break;
                 case 'no_show':
                     $appointment->setStatus(AppointmentStatus::NO_SHOW);
-                    $this->entityManager->flush();
+                    $this->unitOfWork->flush();
                     break;
                 case 'cancel':
                     $this->booker->cancel($appointment, true);

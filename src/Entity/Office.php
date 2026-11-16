@@ -3,7 +3,7 @@
 namespace Base\Office\Entity;
 
 use Base\Office\Repository\OfficeRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A place where the practice receives: its address, how to reach it, what
