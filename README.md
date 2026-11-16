@@ -16,7 +16,7 @@ Nothing here knows health, law or payment. A regime puts its trade on top: `omni
 composer require omnibase/office
 ```
 
-Stable releases follow semantic versioning: this installs the latest 1.x, with omnisense/omnibase 5.1 or later
+Stable releases follow semantic versioning: this installs the latest 2.x, with omnisense/omnibase 7.0 or later
 on Symfony (omnibridge/symfony) and Doctrine ORM (DoctrineBundle). No `minimum-stability` setting is needed.
 
 Under Symfony, register the bundle and its pages, then create its tables:

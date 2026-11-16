@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - 1.0.0
+## 2.0.0
 
 omnibase/office is a professional practice on its own site, whatever the profession (a health centre, a notary's or a
 lawyer's office), on omnisense/omnibase: the office and its team, online booking with a member's schedule and absences,
